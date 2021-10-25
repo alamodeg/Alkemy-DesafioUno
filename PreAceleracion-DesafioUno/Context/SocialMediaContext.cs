@@ -8,17 +8,13 @@ using System.Threading.Tasks;
 
 namespace PreAceleracion_DesafioUno.Context
 {
-    public class SocialMedia : DbContext
+    public class SocialMediaContext : DbContext
     {
         private const string Schema = "Socialmedia";
 
-        public SocialMedia(DbContextOptions options) : base(options)
-        {
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source = (localdb)\\MSSQLLocalDB; Database = socialmediaDB; Integrated Security = True;");
+            optionsBuilder.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB; Database = socialmediaDB; Integrated Security = True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,14 +22,14 @@ namespace PreAceleracion_DesafioUno.Context
             base.OnModelCreating(modelBuilder);
             modelBuilder.HasDefaultSchema(Schema);
 
-            //modelBuilder.Entity<User>().HasData(
-            //    new User()
-            //    {
-            //        Id = 1,
-            //        Name = "Admin",
-            //        Password = "1234",
-            //        Email = "admin@user.com"
-            //    });
+            modelBuilder.Entity<User>().HasData(
+                new User()
+                {
+                    Id = 1,
+                    Name = "Admin",
+                    Password = "1234",
+                    Email = "admin@user.com"
+                });
 
         }
         public DbSet<User> Users { get; set; } = null!;
